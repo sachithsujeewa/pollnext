@@ -1,0 +1,71 @@
+﻿<form class="content mat-body-1">
+
+    <div class="header-row">
+        <!-- <img class="header-image" src="../assets/imges/header.jpg" alt="Header Image"> -->
+        <img class="header-image" src="../assets/imges/header4.png">
+        <img class="foreground-image" src="../assets/imges/profile.jpg">
+    </div>
+
+   
+    <br/>    
+    <textarea [(ngModel)]="question" matInput placeholder="Add your question..." name="question"   class="full-width"></textarea>
+    <div class="action-buttons">
+        <button mat-raised-button class="padding" (click)="clear()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!question" class="padding" (click)="add()">Add</button>
+      </div>
+
+    <div class="custom-container">
+        <div class="custom-div">
+       
+       <mat-card *ngFor="let question of questions" >
+        <mat-card-content class="content">
+             <table>
+                <tbody>
+                    <tr>
+                        <td><mat-icon>person_apron</mat-icon></td>
+                        <td>{{ question.questionText }} 
+
+<div>
+                            <mat-icon (click)="like(question.id,true)" [class.hide]="liked.indexOf(question.id) > -1">thumb_up_off_alt</mat-icon>
+                            <mat-icon (click)="like(question.id,false)" [class.hide]="liked.indexOf(question.id) < 0">thumb_up_alt</mat-icon>
+                            <ng-container *ngIf="question.noOfLikes>0">
+                                <span>{{question.noOfLikes}}</span>
+                              </ng-container>
+                            </div>
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+      </mat-card> 
+    </div>
+</div>
+
+      <footer class="footer">
+        <mat-grid-list cols="4" rowHeight="4px" class="color-panel" >
+            <mat-grid-tile
+                [colspan]="1"
+                [rowspan]="1"
+                style="background-color:#FFBE2A;">
+            </mat-grid-tile>
+            <mat-grid-tile
+                [colspan]="1"
+                [rowspan]="1"
+                style="background-color: #8D1539;">
+            </mat-grid-tile>
+            <mat-grid-tile
+                [colspan]="1"
+                [rowspan]="1"
+                style="background-color: #EB7400;">
+            </mat-grid-tile>
+            <mat-grid-tile
+                [colspan]="1"
+                [rowspan]="1"
+                style="background-color:#01534F;">
+            </mat-grid-tile>
+        </mat-grid-list>
+      </footer>
+</form>
+
+
+  

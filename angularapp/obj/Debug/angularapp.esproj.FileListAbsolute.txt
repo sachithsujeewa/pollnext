@@ -1,0 +1,2 @@
+D:\Projects\ASKAKD\ASK\angularapp\obj\Debug\angularapp.esproj.SuggestedBindingRedirects.cache
+D:\Projects\ASKAKD\ASK\angularapp\obj\Debug\angularapp.esproj.CoreCompileInputs.cache
