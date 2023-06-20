@@ -9,7 +9,10 @@ namespace webapi.Controllers;
 public class QuestionController : ControllerBase
 {
     private readonly AskDBContext _context;
-
+    /// <summary>
+    /// main controller
+    /// </summary>
+    /// <param name="context"></param>
     public QuestionController(AskDBContext context)
     {
         _context = context;
