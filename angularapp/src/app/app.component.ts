@@ -20,29 +20,15 @@ export class AppComponent {
   public newQuestion?: Question
 
   constructor(private readonly http: HttpClient) {
-    http.get<Question[]>('https://jjb.azurewebsites.net/question').subscribe(result => {
+    this.loadLikedQuestions();
+    this.loadQuestions();
+  }
+
+  loadQuestions = () =>{
+    this.http.get<Question[]>('https://jjb.azurewebsites.net/question').subscribe(result => {
       this.questions = result;
     }, error => console.error(error)    )
   }
-
-  // ngOnInit() {
-  //   private breakpointObserver: BreakpointObserver
-  //   this.breakpointObserver.observe([
-  //     Breakpoints.Small,
-  //     Breakpoints.Medium,
-  //     Breakpoints.Large
-  //   ]).subscribe(result => {
-  //     if (result.breakpoints[Breakpoints.Small]) {
-  //       this.screenSize = 'small';
-  //     } else if (result.breakpoints[Breakpoints.Medium]) {
-  //       this.screenSize = 'medium';
-  //     } else if (result.breakpoints[Breakpoints.Large]) {
-  //       this.screenSize = 'large';
-  //     }
-  //   });
-
-   // console.log(this.screenSize)
- // }
 
   title = 'ASK AKD';
 
@@ -80,11 +66,22 @@ export class AppComponent {
       this.liked.splice(this.liked.indexOf(id), 1);
 
     }
+
+    localStorage.setItem('likedComments', JSON.stringify(this.liked));
    
     this.http.put<Question[]>('https://jjb.azurewebsites.net/question',data).subscribe(result => {
       this.questions = result;
     }, error => console.error(error)    )
 
+  }
+
+  refresh = () => {
+    this.loadQuestions();
+  }
+
+   private loadLikedQuestions = () => {
+    const storedData = localStorage.getItem('likedComments');
+    this.liked= storedData ? JSON.parse(storedData) : [];
   }
 
   

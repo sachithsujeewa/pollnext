@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import {MatCardModule} from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     BrowserModule, HttpClientModule,MatToolbarModule,
     MatGridListModule,MatInputModule,MatFormFieldModule,
     FormsModule,MatDividerModule,MatButtonModule,BrowserAnimationsModule,MatCardModule,
-    MatIconModule,MatBadgeModule,
+    MatIconModule,MatBadgeModule,MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
