@@ -19,7 +19,7 @@
 }
 
 .header-image {
-    width:80%;
+    width:100%;
     height: auto;
     position: relative;
     z-index: 1;
@@ -29,14 +29,14 @@
   }
 
   .header-row {
-    background-color: #C3094A;
+    /* background-color: #C3094A; */
     display: flex;
     justify-content: center;
     align-items: center; 
     border-top-left-radius: 5px; 
     border-top-right-radius: 5px; 
-    /* background: linear-gradient(to bottom, #fcfcfc, #e8ebe8);
-    transition: background 1s; */
+    background: linear-gradient(to bottom, #fcfcfc, #e8ebe8);
+    transition: background 1s;
   }
   
   .full-width {

@@ -3,7 +3,7 @@ const PROXY_CONFIG = [
     context: [
       "/question",
     ],
-    target: "https://localhost:7208",
+    target: "http://jjb.azurewebsites.net",
     secure: false
   }
 ]

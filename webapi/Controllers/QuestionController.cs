@@ -27,10 +27,15 @@ public class QuestionController : ControllerBase
     [HttpPost(Name = "SaveQuestion")]
     public IEnumerable<Question> Post(Question question)
     {
-        _context.Questions.Add(question);
-        _context.SaveChanges();
-        return _context.Questions.OrderByDescending(d => d.NoOfLikes).ToArray();
-
+        try
+        {
+            _context.Questions.Add(question);
+            _context.SaveChanges();
+            return _context.Questions.OrderByDescending(d => d.NoOfLikes).ToArray();
+        }
+        catch (Exception ex) {
+            throw ex;
+        }
     }
 
     [HttpPut(Name = "likeQuestion")]

@@ -20,7 +20,7 @@ export class AppComponent {
   public newQuestion?: Question
 
   constructor(private readonly http: HttpClient) {
-    http.get<Question[]>('/question').subscribe(result => {
+    http.get<Question[]>('https://jjb.azurewebsites.net/question').subscribe(result => {
       this.questions = result;
     }, error => console.error(error)    )
   }
@@ -54,7 +54,7 @@ export class AppComponent {
         "noOfLikes": 0
       }
      
-      this.http.post<Question[]>('/question',data).subscribe(result => {
+      this.http.post<Question[]>('https://jjb.azurewebsites.net/question',data).subscribe(result => {
         this.questions = result;
         this.question = '';
       }, error => console.error(error)    )
@@ -81,7 +81,7 @@ export class AppComponent {
 
     }
    
-    this.http.put<Question[]>('/question',data).subscribe(result => {
+    this.http.put<Question[]>('https://jjb.azurewebsites.net/question',data).subscribe(result => {
       this.questions = result;
     }, error => console.error(error)    )
 
