@@ -1,10 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-// import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-// import { MatTypographyModule } from '@angular/material/typography';
-
-
-
 
 @Component({
   selector: 'app-root',
@@ -18,6 +13,7 @@ export class AppComponent {
   public screenSize?: string;
   question: string='';
   public newQuestion?: Question
+  private baseUrl = 'https://jjb.azurewebsites.net/question'
 
   constructor(private readonly http: HttpClient) {
     this.loadLikedQuestions();
@@ -25,7 +21,7 @@ export class AppComponent {
   }
 
   loadQuestions = () =>{
-    this.http.get<Question[]>('https://jjb.azurewebsites.net/question').subscribe(result => {
+    this.http.get<Question[]>(this.baseUrl).subscribe(result => {
       this.questions = result;
     }, error => console.error(error)    )
   }
@@ -40,7 +36,7 @@ export class AppComponent {
         "noOfLikes": 0
       }
      
-      this.http.post<Question[]>('https://jjb.azurewebsites.net/question',data).subscribe(result => {
+      this.http.post<Question[]>(this.baseUrl,data).subscribe(result => {
         this.questions = result;
         this.question = '';
       }, error => console.error(error)    )
@@ -64,15 +60,13 @@ export class AppComponent {
     }
     else{
       this.liked.splice(this.liked.indexOf(id), 1);
-
     }
 
     localStorage.setItem('likedComments', JSON.stringify(this.liked));
    
-    this.http.put<Question[]>('https://jjb.azurewebsites.net/question',data).subscribe(result => {
+    this.http.put<Question[]>(this.baseUrl,data).subscribe(result => {
       this.questions = result;
-    }, error => console.error(error)    )
-
+    }, error => console.error(error))
   }
 
   refresh = () => {
@@ -82,9 +76,7 @@ export class AppComponent {
    private loadLikedQuestions = () => {
     const storedData = localStorage.getItem('likedComments');
     this.liked= storedData ? JSON.parse(storedData) : [];
-  }
-
-  
+  }  
 }
 
 interface Question{
