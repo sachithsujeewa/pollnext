@@ -73,8 +73,7 @@
     height: 60%; /* Adjust the percentage as needed */
     overflow: auto;
   }
-  .footer {
-    position: fixed;
+  .footer { 
     left: 0;
     bottom: 0;
      width: 100%;

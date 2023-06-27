@@ -17,7 +17,13 @@ export class AppComponent {
 
   constructor(private readonly http: HttpClient) {
     this.loadLikedQuestions();
-    this.loadQuestions();
+    this.loadQuestions(); 
+  }
+
+  ngAfterViewInit() {
+    setInterval(() => {
+      this.loadQuestions();
+    }, 1000);
   }
 
   loadQuestions = () =>{
