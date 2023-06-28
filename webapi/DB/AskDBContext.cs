@@ -12,5 +12,6 @@ namespace webapi.DB
         }
 
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Member> Members { get; set; }
     }
 }

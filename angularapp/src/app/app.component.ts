@@ -13,7 +13,12 @@ export class AppComponent {
   public screenSize?: string;
   question: string='';
   public newQuestion?: Question
-  private baseUrl = 'https://jjb.azurewebsites.net/question'
+  private baseUrl = 'https://jjb.azurewebsites.net'
+
+  public name?: string
+  public mobile?: string
+
+  isBusy: boolean = false
 
   constructor(private readonly http: HttpClient) {
     this.loadLikedQuestions();
@@ -23,11 +28,11 @@ export class AppComponent {
   ngAfterViewInit() {
     setInterval(() => {
       this.loadQuestions();
-    }, 1000);
+    }, 2000);
   }
 
   loadQuestions = () =>{
-    this.http.get<Question[]>(this.baseUrl).subscribe(result => {
+    this.http.get<Question[]>(`${this.baseUrl}/question`).subscribe(result => {
       this.questions = result;
     }, error => console.error(error)    )
   }
@@ -35,14 +40,13 @@ export class AppComponent {
   title = 'ASK AKD';
 
     add =() =>{
- 
       var data = {
         "id": 0,
         "questionText": this.question,
         "noOfLikes": 0
       }
      
-      this.http.post<Question[]>(this.baseUrl,data).subscribe(result => {
+      this.http.post<Question[]>(`${this.baseUrl}/question`,data).subscribe(result => {
         this.questions = result;
         this.question = '';
       }, error => console.error(error)    )
@@ -70,7 +74,7 @@ export class AppComponent {
 
     localStorage.setItem('likedComments', JSON.stringify(this.liked));
    
-    this.http.put<Question[]>(this.baseUrl,data).subscribe(result => {
+    this.http.put<Question[]>(`${this.baseUrl}/question`,data).subscribe(result => {
       this.questions = result;
     }, error => console.error(error))
   }
@@ -83,6 +87,23 @@ export class AppComponent {
     const storedData = localStorage.getItem('likedComments');
     this.liked= storedData ? JSON.parse(storedData) : [];
   }  
+
+  createMember =() => {
+
+    this.isBusy = true;
+    var data = {
+      "id": 0,
+      "name": this.name,
+      "mobile": this.mobile
+    }
+   
+    this.http.post(`${this.baseUrl}/member`,data).subscribe(result => {   
+      this.name = '';
+      this.mobile=''
+    }, error => console.error(error)    )
+
+    this.isBusy = false;
+  }
 }
 
 interface Question{
