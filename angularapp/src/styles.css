@@ -6,3 +6,25 @@
 * {
     outline: transparent !important;
 }
+
+
+.mat-mdc-tab-header{
+    padding-bottom: 4rem !important;
+  }
+
+  .mdc-tab__ripple.mdc-tab__ripple,.mdc-tab-indicator{
+    display: none !important;
+  }
+  .mat-ripple.mat-mdc-tab-ripple{
+    display: none !important;
+  }
+
+  .mdc-tab-indicator--active{
+    @apply !rounded-full !bg-white;
+  }
+  .mat-mdc-tab-labels{
+    justify-content: center;
+  }
+  .mat-mdc-text-field-wrapper.mdc-text-field{
+    overflow: visible;
+  }

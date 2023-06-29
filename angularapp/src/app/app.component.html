@@ -1,8 +1,8 @@
-﻿<nav class="bg-[#c3094a] text-white fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+﻿<nav class="bg-[#c3094a] text-white fixed w-full z-20 top-0 left-0 border-b border-gray-200 ">
     <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto p-2">
     <a href="/" class="flex items-center">
         <img class="h-10 mr-2" src="../assets/imges/malimawa.webp" alt="Logo">
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Ask AKD</span>
+        <span class="self-center text-2xl font-semibold whitespace-nowrap ">Ask AKD</span>
     </a>
     </div>
     </nav>
@@ -12,8 +12,8 @@
 
 
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-        <mat-tab label="ASK IT">
-            <div class="bg-white overflow-hidden border border-gray-200 rounded shadow dark:bg-gray-800 dark:border-gray-700 grid grid-cols-[1fr_auto] py-4"> 
+        <mat-tab label="Ask Questions" labelClass="">
+            <div class="bg-white overflow-hidden border border-gray-200 rounded shadow   grid grid-cols-[1fr_auto] py-4"> 
                 <textarea  
                 cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize"
@@ -25,7 +25,7 @@
             </div>
            
             <div class="mt-4 space-y-2">
-                <div  *ngFor="let question of questions" class="bg-white overflow-hidden border border-gray-200 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-700 grid grid-cols-[1fr_auto] place-items-start p-4 text-gray-800 relative text-sm"> 
+                <div  *ngFor="let question of questions" class="bg-white overflow-hidden border border-gray-200 rounded-md shadow-sm   grid grid-cols-[1fr_auto] place-items-start p-4 text-gray-800 relative text-sm"> 
                     {{ question.questionText }} 
                     <button class="grid grid-cols-2 place-items-center">
                         <svg (click)="like(question.id,true)" [class.hide]="liked.indexOf(question.id) > -1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-[#c3094a] opacity-70 hover:opacity-100 transition-all">
@@ -39,22 +39,25 @@
                 </div> 
             </div>
         </mat-tab>
-        <mat-tab label="Join us">
-            <div>
-                <mat-form-field class="example-form-field">
-                    <mat-label>Name</mat-label>
-                    <input matInput type="text" [(ngModel)]="name" name="name" >
-                    <mat-icon matSuffix>mode_edit</mat-icon>                   
-                  </mat-form-field>
+        <mat-tab label="Join">
+            <div class="">
+                
+            <div class="bg-white rounded-lg m-5 lg:w-2/4 mx-auto grid grid-cols-1 justify-items-center p-16">
+                
 
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Mobile</mat-label>                     
-                    <input type="tel" matInput placeholder="555-555-123" [(ngModel)]="mobile" name="mobile" >
-                    <mat-icon matSuffix>mode_edit</mat-icon>
-                  </mat-form-field>
+                    <mat-form-field class="">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" [(ngModel)]="name" name="name" >        
+                      </mat-form-field>
+                
+    <mat-form-field class="example-full-width">
+        <mat-label>Mobile</mat-label>                     
+        <input type="tel" matInput placeholder="555-555-123" [(ngModel)]="mobile" name="mobile" > 
+      </mat-form-field> 
 
-                  <button mat-raised-button color="primary" [disabled]="!name || !mobile || isBusy" (click)="createMember()">Save</button>
+                  <button mat-raised-button color="primary" [disabled]="!name || !mobile || isBusy" (click)="createMember()">Send</button>
             </div>
+        </div>
         </mat-tab>
     </mat-tab-group>
 
