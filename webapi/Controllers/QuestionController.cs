@@ -21,7 +21,7 @@ public class QuestionController : ControllerBase
     [HttpGet(Name = "GetQuestion")]
     public IEnumerable<Question> Get()
     {
-        return _context.Questions.OrderByDescending(d => d.NoOfLikes).ToArray();
+        return _context.Questions.OrderByDescending(d => d.NoOfLikes).ThenByDescending(d => d.Id).ToArray();
     }
 
     [HttpPost(Name = "SaveQuestion")]
@@ -33,7 +33,8 @@ public class QuestionController : ControllerBase
             _context.SaveChanges();
             return _context.Questions.OrderByDescending(d => d.NoOfLikes).ToArray();
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
