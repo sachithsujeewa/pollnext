@@ -2,6 +2,8 @@
 
 A modern question and answer platform built with Next.js, designed for the NPP Adelaide community.
 
+> **📌 IMPORTANT:** This app uses **in-memory storage** for Vercel serverless compatibility. Data resets periodically (~5-15 min of inactivity) and on deployments. **Perfect for demos!** For permanent storage, see `VERCEL_FIX.md` to upgrade to a database.
+
 ## Features
 
 - 📝 Ask questions and get community engagement
@@ -16,7 +18,7 @@ A modern question and answer platform built with Next.js, designed for the NPP A
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Storage**: CSV files for questions, JSON for members
+- **Storage**: In-memory (for Vercel serverless compatibility)
 - **Deployment**: Vercel (Free Tier)
 
 ## Getting Started
