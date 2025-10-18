@@ -136,7 +136,7 @@ export default function Home() {
               className="h-10 w-10 mr-2"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap">
-              Ask AKD
+              Ask Up
             </span>
           </a>
           <a href="https://www.facebook.com/NPPADELAIDE" target="_blank" rel="noopener noreferrer">

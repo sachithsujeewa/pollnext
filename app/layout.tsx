@@ -3,7 +3,7 @@ import "./globals.css";
 import "@material-icons/font/css/baseline.css";
 
 export const metadata: Metadata = {
-  title: "ASK AKD",
+  title: "ASK UP",
   description: "Ask questions and engage with the community",
 };
 
