@@ -4,7 +4,7 @@ import "@material-icons/font/css/baseline.css";
 
 export const metadata: Metadata = {
   title: "ASK UP",
-  description: "Ask questions and engage with the community",
+  description: "Ask questions and engage with the panel",
 };
 
 export default function RootLayout({
