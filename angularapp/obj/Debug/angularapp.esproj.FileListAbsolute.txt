@@ -1,4 +1,0 @@
-D:\Projects\ASKAKD\ASK\angularapp\obj\Debug\angularapp.esproj.SuggestedBindingRedirects.cache
-D:\Projects\ASKAKD\ASK\angularapp\obj\Debug\angularapp.esproj.CoreCompileInputs.cache
-C:\Users\PrashanFernando\Downloads\Test\ASKAKD2\angularapp\obj\Debug\angularapp.esproj.SuggestedBindingRedirects.cache
-C:\Users\PrashanFernando\Downloads\Test\ASKAKD2\angularapp\obj\Debug\angularapp.esproj.CoreCompileInputs.cache
