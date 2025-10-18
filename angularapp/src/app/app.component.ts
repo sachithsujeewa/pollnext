@@ -13,7 +13,7 @@ export class AppComponent {
   public screenSize?: string;
   question: string='';
   public newQuestion?: Question
-  private baseUrl = 'https://jjb.azurewebsites.net'
+  private baseUrl = 'http://localhost:5153'
 
   public name?: string
   public mobile?: string
@@ -41,7 +41,7 @@ export class AppComponent {
 
     add =() =>{
       var data = {
-        "id": 0,
+        "id": "NEW",
         "questionText": this.question,
         "noOfLikes": 0
       }

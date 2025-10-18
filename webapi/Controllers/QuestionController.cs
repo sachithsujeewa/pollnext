@@ -21,7 +21,7 @@ public class QuestionController : ControllerBase
     [HttpGet(Name = "GetQuestion")]
     public IEnumerable<Question> Get()
     {
-        return _context.Questions.OrderByDescending(d => d.NoOfLikes).ThenByDescending(d => d.Id).ToArray();
+        return CSVHelper.GetQuestions();
     }
 
     [HttpPost(Name = "SaveQuestion")]
@@ -29,9 +29,9 @@ public class QuestionController : ControllerBase
     {
         try
         {
-            _context.Questions.Add(question);
-            _context.SaveChanges();
-            return _context.Questions.OrderByDescending(d => d.NoOfLikes).ToArray();
+            question.Id = Guid.NewGuid().ToString();
+            CSVHelper.AddQuestion(question);
+            return CSVHelper.GetQuestions();
         }
         catch (Exception ex)
         {
@@ -42,7 +42,7 @@ public class QuestionController : ControllerBase
     [HttpPut(Name = "likeQuestion")]
     public IEnumerable<Question> put(Question questionModel)
     {
-        var question = _context.Questions.FirstOrDefault(d => d.Id == questionModel.Id);
+        var question = CSVHelper.GetQuestions().FirstOrDefault(d => d.Id == questionModel.Id);
         if (question != null)
         {
             if (questionModel.NoOfLikes > 0)
@@ -53,9 +53,9 @@ public class QuestionController : ControllerBase
             {
                 question.NoOfLikes--;
             }
-            _context.SaveChanges();
+            CSVHelper.UpdateQuestion(question);
         }
-        return _context.Questions.OrderByDescending(d => d.NoOfLikes).ToArray();
+        return CSVHelper.GetQuestions().OrderByDescending(d => d.NoOfLikes).ToArray();
 
     }
 }
