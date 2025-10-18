@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { Question } from '@/types';
 
@@ -9,6 +9,25 @@ export default function Home() {
   const [questionText, setQuestionText] = useState('');
   const [liked, setLiked] = useState<string[]>([]);
 
+  const loadQuestions = useCallback(async () => {
+    try {
+      const response = await fetch('/api/question', {
+        cache: 'no-store'
+      });
+      const data = await response.json();
+      
+      // Only update if data actually changed
+      setQuestions(prev => {
+        if (JSON.stringify(data) !== JSON.stringify(prev)) {
+          return data;
+        }
+        return prev;
+      });
+    } catch (error) {
+      console.error('Error loading questions:', error);
+    }
+  }, []);
+
   // Load liked questions from localStorage
   useEffect(() => {
     const storedData = localStorage.getItem('likedComments');
@@ -16,7 +35,7 @@ export default function Home() {
       setLiked(JSON.parse(storedData));
     }
     loadQuestions();
-  }, []);
+  }, [loadQuestions]);
 
   // Auto-refresh questions every 2 seconds
   useEffect(() => {
@@ -25,17 +44,7 @@ export default function Home() {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
-
-  const loadQuestions = async () => {
-    try {
-      const response = await fetch('/api/question');
-      const data = await response.json();
-      setQuestions(data);
-    } catch (error) {
-      console.error('Error loading questions:', error);
-    }
-  };
+  }, [loadQuestions]);
 
   const addQuestion = async () => {
     if (!questionText.trim()) return;
