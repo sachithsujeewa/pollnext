@@ -19,6 +19,17 @@ export default function AdminPage() {
     }
   }, [isAuthenticated]);
 
+  // Auto-refresh every 3 seconds
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const interval = setInterval(() => {
+      loadQuestions();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isAuthenticated]);
+
   const handleLogin = () => {
     if (password === ADMIN_PASSWORD) {
       setIsAuthenticated(true);
@@ -182,17 +193,16 @@ export default function AdminPage() {
                 className="hidden"
               />
             </label>
-            <button
-              onClick={loadQuestions}
-              className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
-            >
-              🔄 Refresh
-            </button>
           </div>
 
-          <p className="text-sm text-gray-600 mb-4">
-            Total Questions: {questions.length}
-          </p>
+          <div className="flex justify-between items-center mb-4">
+            <p className="text-sm text-gray-600">
+              Total Questions: {questions.length}
+            </p>
+            <p className="text-xs text-gray-400">
+              🔄 Auto-refreshing every 3 seconds
+            </p>
+          </div>
         </div>
 
         <div className="space-y-3">
