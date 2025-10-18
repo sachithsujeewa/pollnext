@@ -8,10 +8,6 @@ export default function Home() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionText, setQuestionText] = useState('');
   const [liked, setLiked] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<'questions' | 'join'>('questions');
-  const [name, setName] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [isBusy, setIsBusy] = useState(false);
 
   // Load liked questions from localStorage
   useEffect(() => {
@@ -95,32 +91,6 @@ export default function Home() {
     }
   };
 
-  const createMember = async () => {
-    if (!name.trim() || !mobile.trim()) return;
-
-    setIsBusy(true);
-    try {
-      await fetch('/api/member', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          mobile: mobile,
-        }),
-      });
-
-      setName('');
-      setMobile('');
-      alert('Member registered successfully!');
-    } catch (error) {
-      console.error('Error creating member:', error);
-      alert('Failed to register member');
-    } finally {
-      setIsBusy(false);
-    }
-  };
 
   return (
     <>
@@ -154,34 +124,8 @@ export default function Home() {
       {/* Main Content */}
       <div className="max-w-5xl m-auto mt-20 lg:mt-28 relative px-2 lg:px-0">
         <div className="content">
-          {/* Tabs */}
-          <div className="border-b border-gray-200 mb-4">
-            <nav className="-mb-px flex space-x-8">
-              <button
-                onClick={() => setActiveTab('questions')}
-                className={`${
-                  activeTab === 'questions'
-                    ? 'border-[#c3094a] text-[#c3094a]'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm uppercase`}
-              >
-                Ask Questions
-              </button>
-              <button
-                onClick={() => setActiveTab('join')}
-                className={`${
-                  activeTab === 'join'
-                    ? 'border-[#c3094a] text-[#c3094a]'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm uppercase`}
-              >
-                Join
-              </button>
-            </nav>
-          </div>
-
-          {/* Questions Tab */}
-          {activeTab === 'questions' && (
+          {/* Questions Section */}
+          <div>
             <div>
               <div className="bg-white overflow-hidden border border-gray-200 rounded shadow grid grid-cols-[1fr_auto] py-4">
                 <textarea
@@ -253,43 +197,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          )}
-
-          {/* Join Tab */}
-          {activeTab === 'join' && (
-            <div className="bg-white rounded-lg lg:w-2/4 mx-auto p-8 space-y-4">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#c3094a]"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Mobile
-                </label>
-                <input
-                  type="tel"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  placeholder="555-555-123"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#c3094a]"
-                />
-              </div>
-              <button
-                onClick={createMember}
-                disabled={!name.trim() || !mobile.trim() || isBusy}
-                className="w-full py-2 px-4 bg-[#c3094a] text-white rounded-md hover:bg-[#a00840] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isBusy ? 'Sending...' : 'Send'}
-              </button>
-            </div>
-          )}
+          </div>
 
           {/* Header Image */}
           <div className="mt-28">
