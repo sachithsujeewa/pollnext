@@ -8,7 +8,6 @@ Your application now has a **secure admin panel** where you can manage questions
 
 **URL:** `https://pollnext.vercel.app/admin`
 
-**Default Password:** `admin123`
 
 > ⚠️ **IMPORTANT**: Change the password before going live! See "Changing Password" section below.
 
