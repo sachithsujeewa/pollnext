@@ -14,12 +14,21 @@ export default function Home() {
       const response = await fetch('/api/question', {
         cache: 'no-store'
       });
+      
+      if (!response.ok) {
+        console.error('Failed to fetch questions:', response.status);
+        return;
+      }
+      
       const data = await response.json();
+      
+      // Ensure data is an array
+      const questionsArray = Array.isArray(data) ? data : [];
       
       // Only update if data actually changed
       setQuestions(prev => {
-        if (JSON.stringify(data) !== JSON.stringify(prev)) {
-          return data;
+        if (JSON.stringify(questionsArray) !== JSON.stringify(prev)) {
+          return questionsArray;
         }
         return prev;
       });
@@ -60,8 +69,13 @@ export default function Home() {
         }),
       });
 
+      if (!response.ok) {
+        console.error('Failed to add question:', response.status);
+        return;
+      }
+
       const data = await response.json();
-      setQuestions(data);
+      setQuestions(Array.isArray(data) ? data : []);
       setQuestionText('');
     } catch (error) {
       console.error('Error adding question:', error);
@@ -93,8 +107,13 @@ export default function Home() {
         }),
       });
 
+      if (!response.ok) {
+        console.error('Failed to update question:', response.status);
+        return;
+      }
+
       const data = await response.json();
-      setQuestions(data);
+      setQuestions(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error liking question:', error);
     }

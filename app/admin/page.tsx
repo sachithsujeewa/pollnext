@@ -42,10 +42,15 @@ export default function AdminPage() {
   const loadQuestions = async () => {
     try {
       const response = await fetch('/api/question');
+      if (!response.ok) {
+        console.error('Failed to load questions:', response.status);
+        return;
+      }
       const data = await response.json();
-      setQuestions(data);
+      setQuestions(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error loading questions:', error);
+      setQuestions([]);
     }
   };
 
