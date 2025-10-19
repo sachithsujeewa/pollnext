@@ -8,6 +8,8 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const questions = await getQuestions();
+    // Sort by likes descending (highest first)
+    questions.sort((a, b) => b.noOfLikes - a.noOfLikes);
     return NextResponse.json(questions);
   } catch (error) {
     console.error('Error fetching questions:', error);
@@ -31,6 +33,9 @@ export async function POST(request: NextRequest) {
 
     await addQuestion(question);
     const questions = await getQuestions();
+    
+    // Sort by likes descending
+    questions.sort((a, b) => b.noOfLikes - a.noOfLikes);
     
     return NextResponse.json(questions);
   } catch (error) {

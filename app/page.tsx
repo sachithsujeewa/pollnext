@@ -25,10 +25,13 @@ export default function Home() {
       // Ensure data is an array
       const questionsArray = Array.isArray(data) ? data : [];
       
+      // Sort by likes descending (highest first)
+      const sortedQuestions = questionsArray.sort((a, b) => b.noOfLikes - a.noOfLikes);
+      
       // Only update if data actually changed
       setQuestions(prev => {
-        if (JSON.stringify(questionsArray) !== JSON.stringify(prev)) {
-          return questionsArray;
+        if (JSON.stringify(sortedQuestions) !== JSON.stringify(prev)) {
+          return sortedQuestions;
         }
         return prev;
       });
@@ -75,7 +78,9 @@ export default function Home() {
       }
 
       const data = await response.json();
-      setQuestions(Array.isArray(data) ? data : []);
+      const questionsArray = Array.isArray(data) ? data : [];
+      const sortedQuestions = questionsArray.sort((a, b) => b.noOfLikes - a.noOfLikes);
+      setQuestions(sortedQuestions);
       setQuestionText('');
     } catch (error) {
       console.error('Error adding question:', error);
@@ -113,7 +118,9 @@ export default function Home() {
       }
 
       const data = await response.json();
-      setQuestions(Array.isArray(data) ? data : []);
+      const questionsArray = Array.isArray(data) ? data : [];
+      const sortedQuestions = questionsArray.sort((a, b) => b.noOfLikes - a.noOfLikes);
+      setQuestions(sortedQuestions);
     } catch (error) {
       console.error('Error liking question:', error);
     }
