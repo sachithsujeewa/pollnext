@@ -2,7 +2,7 @@
 
 A modern question and answer platform built with Next.js, designed for the NPP Adelaide community.
 
-> **📌 IMPORTANT:** This app uses **in-memory storage** for Vercel serverless compatibility. Data resets periodically (~5-15 min of inactivity) and on deployments. **Perfect for demos!** For permanent storage, see `VERCEL_FIX.md` to upgrade to a database.
+> **✅ PRODUCTION READY:** This app uses **Redis (Vercel KV)** for persistent data storage. All questions and members are permanently stored. See `REDIS_SETUP.md` for details.
 
 ## Features
 
@@ -10,15 +10,16 @@ A modern question and answer platform built with Next.js, designed for the NPP A
 - 👍 Like/unlike questions
 - 📊 Real-time question updates
 - 👥 Member registration
-- 💾 File-based storage (no database required)
+- 💾 Redis (Vercel KV) persistent storage
 - 🚀 Optimized for Vercel deployment
+- ✅ Production-ready data persistence
 
 ## Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Storage**: In-memory (for Vercel serverless compatibility)
+- **Storage**: Redis (Vercel KV) - Persistent storage
 - **Deployment**: Vercel (Free Tier)
 
 ## Getting Started
@@ -41,12 +42,20 @@ cd ASKAKD2
 npm install
 ```
 
-3. Run the development server:
+3. Set up environment variables for local development:
+```bash
+# Pull Redis credentials from Vercel
+vercel env pull .env.local
+```
+
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+> **Note:** For local development, you need Redis credentials. See `REDIS_SETUP.md` for details.
 
 ## Project Structure
 
@@ -59,15 +68,12 @@ npm run dev
 │   ├── page.tsx          # Main page component
 │   └── globals.css       # Global styles
 ├── lib/
-│   ├── csvHelper.ts      # CSV file operations for questions
-│   └── memberHelper.ts   # JSON file operations for members
+│   ├── csvHelper.ts      # Redis operations for questions
+│   └── memberHelper.ts   # Redis operations for members
 ├── types/
 │   └── index.ts          # TypeScript type definitions
 ├── public/
 │   └── images/           # Static images
-├── data/                 # Data storage (auto-created)
-│   ├── questions.csv     # Questions data
-│   └── members.json      # Members data
 └── package.json
 ```
 
@@ -96,9 +102,14 @@ npm run dev
    - Root Directory: `./` (leave as default)
    - Build Command: `npm run build` (default)
    - Output Directory: `.next` (default)
-   - No environment variables needed!
 
-5. **Deploy**:
+5. **Set Up Redis Storage**:
+   - In Vercel Dashboard → Storage → Create Database → KV
+   - Connect to your project
+   - Environment variables are automatically configured
+   - See `REDIS_SETUP.md` for detailed instructions
+
+6. **Deploy**:
    - Click "Deploy"
    - Wait for build to complete (~2-3 minutes)
    - Your app will be live at `https://your-project.vercel.app`
@@ -135,46 +146,53 @@ npm run dev
 
 ## Important Notes for Vercel Deployment
 
-### Data Persistence
+### Data Persistence ✅
 
-⚠️ **Important**: Vercel's free tier uses serverless functions, which are stateless. This means:
+**Redis (Vercel KV) Storage:**
+- ✅ Data persists permanently across deployments
+- ✅ Data survives serverless function restarts
+- ✅ Production-ready persistent storage
+- ✅ Fast sub-millisecond response times
 
-- **Data stored in CSV/JSON files will NOT persist between deployments**
-- Files written at runtime are stored in `/tmp` and cleared after function execution
+**Free Tier Includes:**
+- 256 MB Redis storage
+- Perfect for thousands of questions
+- Automatic scaling
+- No credit card required
 
-### Recommended Solutions:
-
-1. **For Production Use** - Migrate to a database:
-   - **Vercel Postgres** (Free tier: 256MB, 60 hours/month)
-   - **MongoDB Atlas** (Free tier: 512MB)
-   - **Supabase** (Free tier with PostgreSQL)
-
-2. **For Testing/Demo** - Current setup works, but:
-   - Data resets on each deployment
-   - Use it for temporary/demo purposes
-
-### To Add Vercel Postgres (Recommended):
-
-1. In Vercel Dashboard, go to your project
-2. Click "Storage" → "Create Database" → "Postgres"
-3. Follow the setup wizard
-4. Update your code to use the database instead of CSV files
+See `REDIS_SETUP.md` for complete setup instructions.
 
 ## Environment Variables
 
-No environment variables are required for the basic setup. If you add a database later, you'll need to configure connection strings.
+The following environment variables are **automatically configured** by Vercel when you connect Redis:
+
+- `KV_REST_API_URL` - Redis endpoint
+- `KV_REST_API_TOKEN` - Authentication token
+
+For local development, pull these from Vercel:
+```bash
+vercel env pull .env.local
+```
 
 ## Local Development
 
-The app works perfectly in local development with file-based storage:
+The app uses Redis for storage. To run locally:
 
+1. **Pull environment variables from Vercel:**
+```bash
+vercel env pull .env.local
+```
+
+2. **Run development server:**
 ```bash
 npm run dev
 ```
 
-Data will be stored in the `./data` directory:
-- `questions.csv` - All questions
-- `members.json` - All registered members
+Data is stored in Vercel KV (Redis):
+- Questions stored in Redis key: `questions`
+- Members stored in Redis key: `members`
+
+See `REDIS_SETUP.md` for troubleshooting local development.
 
 ## Building for Production
 

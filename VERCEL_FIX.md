@@ -30,68 +30,43 @@ let membersCache: Member[] = [];
 
 ## Important Notes
 
-### ⚠️ Data Persistence
+### ✅ Data Persistence - NOW WITH REDIS!
 
-**Current Setup (In-Memory):**
+**Current Setup (Redis/Vercel KV):**
 - ✅ Works perfectly on Vercel (no errors!)
-- ✅ Fast and simple
-- ⚠️ Data resets when serverless function restarts (~5-15 minutes of inactivity)
-- ⚠️ Data resets on each deployment
+- ✅ Fast and efficient
+- ✅ Data persists permanently in Redis
+- ✅ Data survives serverless function restarts
+- ✅ Data survives deployments
+- ✅ Production-ready!
 
-**Best for:**
-- ✅ Demos and testing
-- ✅ Temporary polls/questions
-- ✅ Learning and prototyping
+**Upgraded from in-memory to Redis storage!**
+- Questions and members now stored in Vercel KV (Redis)
+- See `REDIS_SETUP.md` for complete documentation
 
-### 🔄 What Happens
+## ✅ Production Ready with Redis!
 
-1. **User visits app** → Serverless function starts → Empty data
-2. **Users add questions** → Data stored in memory → Works great!
-3. **15 minutes of no traffic** → Function shuts down → Data cleared
-4. **User visits again** → Function restarts → Fresh empty data
+Your app now uses **Vercel KV (Redis)** for persistent storage.
 
-## For Production Use
+**See `REDIS_SETUP.md` for:**
+- Complete setup instructions
+- Local development guide
+- Troubleshooting tips
+- Data structure details
 
-If you need data to persist permanently, upgrade to a database:
+### Alternative Database Options (If Needed)
 
-### Option 1: Vercel Postgres (Recommended) ⭐
+If you need different features in the future:
 
-**Free Tier:**
-- 256 MB storage
-- 60 compute hours/month
-- Stays on Vercel
+**Vercel Postgres:**
+- Complex queries and relationships
+- SQL-based operations
+- 256 MB free tier
 
-**Setup:**
-1. Go to Vercel Dashboard → Your Project
-2. Click "Storage" tab
-3. Click "Create Database" → "Postgres"
-4. Click "Continue" → "Create"
-5. Get connection string from `.env.local` tab
-
-**Migration time:** ~30 minutes
-
-### Option 2: Vercel KV (Redis)
-
-**Free Tier:**
-- 256 MB storage
-- Perfect for key-value storage
-
-**Best for:**
-- Simple data structures
-- High-speed access
-
-### Option 3: Supabase PostgreSQL
-
-**Free Tier:**
-- 500 MB database
+**Supabase:**
 - Real-time subscriptions
-- Authentication built-in
-
-**Setup:**
-1. Sign up at supabase.com
-2. Create new project
-3. Get connection string
-4. Update your code
+- Built-in authentication
+- 500 MB free tier
 
 ## Current Status
 
@@ -106,18 +81,16 @@ Visit: https://pollnext.vercel.app
 - ✅ Register members
 - ✅ Real-time updates (within same session)
 
-**Known limitation:**
-- ⚠️ Data resets periodically (see above)
+**Features:**
+- ✅ Persistent data storage with Redis
+- ✅ Data survives deployments and restarts
 
 ## Next Steps
 
-**For Demo/Testing:**
-- ✅ You're all set! Use as is.
-
 **For Production:**
-1. Choose a database option (Vercel Postgres recommended)
-2. Let me know, and I'll help you migrate!
-3. Takes ~30 minutes to set up
+- ✅ You're all set! Redis is production-ready.
+- ✅ Data persists permanently
+- ✅ See `REDIS_SETUP.md` for details
 
 ## Deployment Commands
 
@@ -133,9 +106,9 @@ git push
 
 ---
 
-**Your app is now live and working!** 🎉
+**Your app is now live with Redis storage!** 🎉
 
-Data resets are normal for in-memory storage. This is perfect for demos!
+Data now persists permanently in Redis. Production-ready! 🚀
 
-Want me to upgrade to Vercel Postgres for permanent storage? Just ask! 🚀
+See `REDIS_SETUP.md` for complete documentation.
 

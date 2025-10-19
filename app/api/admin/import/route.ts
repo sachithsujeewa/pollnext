@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Question } from '@/types';
-import * as csvHelper from '@/lib/csvHelper';
+import { replaceAllQuestions } from '@/lib/csvHelper';
 
 export const dynamic = 'force-dynamic';
-
-// Helper to replace all questions
-async function replaceAllQuestions(questions: Question[]) {
-  // Clear existing and add new ones
-  (csvHelper as any).questionsCache = questions;
-}
 
 function parseCsvLine(line: string): string[] {
   const result: string[] = [];

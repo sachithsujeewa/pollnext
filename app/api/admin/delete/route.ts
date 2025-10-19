@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as csvHelper from '@/lib/csvHelper';
+import { deleteQuestion } from '@/lib/csvHelper';
 
 export const dynamic = 'force-dynamic';
-
-// Helper to delete a question
-async function deleteQuestionById(id: string) {
-  const questions = await csvHelper.getQuestions();
-  const filtered = questions.filter(q => q.id !== id);
-  (csvHelper as any).questionsCache = filtered;
-}
 
 // DELETE - Remove a question
 export async function DELETE(request: NextRequest) {
@@ -23,7 +16,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await deleteQuestionById(id);
+    await deleteQuestion(id);
     
     return NextResponse.json({ success: true });
   } catch (error) {
